@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <input type="text" name="user" id="user_field" onChange="return userValidation()" placeholder="Username">
+<span id="user-error"></span>
+<script>
+function userValidation()
+{
+  username = document.getElementById('user_field').value;
+  var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  if (username == ''){
+      document.getElementById("user-error").innerHTML = "Username must not be empty";
+      return false;
+  } else if(username != '') {    
+    if( username.match(format)){
+      document.getElementById("user-error").innerHTML = "Username must not contain any symbols";
+      return false;
+    }else if (username.length < 3){
+      document.getElementById("user-error").innerHTML = "Username must contain at least 3 characters";
+      return false;
+    }else if (username.length > 10){
+      document.getElementById("user-error").innerHTML = "Username must not exceed 10 characters";
+      return false;
+    }else{
+      return true;
+    }
+  }
+}
+</script>
+    </body>
+</html>

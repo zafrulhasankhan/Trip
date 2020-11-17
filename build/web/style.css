@@ -1,0 +1,43 @@
+.oneway{
+   position: absolute;
+   top: 20%;
+   left: 30%;
+   height: 65%;
+   width: 40%;
+   background: #cccccc;
+   box-shadow: 2px 18px 20px 20px #666666;  
+   text-align: center;
+}
+.oneway .depart{
+    margin-right: 48px;
+    
+}
+
+.roundtrip{
+    position: absolute;
+   top: 20%;
+   left: 30%;
+   height: 92%;
+   width: 37%;
+   background: #cccccc;
+   box-shadow: 2px 18px 20px 20px #666666; 
+   text-align: center;
+}
+.multicity{
+   position: absolute;
+   top: 20%;
+   left: 10%;
+   height: 60%;
+   width: 80%;
+   background: #cccccc;
+   background-size: auto;
+   box-shadow: 2px 18px 20px 20px #666666;  
+   text-align: center;
+}
+.multicity2{
+    
+    height: 90px;
+    background: #cccccc;
+    box-shadow: 2px 18px 20px 20px #666666;  
+   text-align: center;
+}

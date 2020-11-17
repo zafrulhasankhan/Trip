@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href= 
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+    <script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> 
+    </script> 
+    <script src= 
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"> 
+    </script> 
+    <script src= 
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"> 
+    </script> 
+  
+    <!-- CDN link used below is compatible with this example -->
+    <link rel="stylesheet" href= 
+"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css"> 
+    <script src= 
+"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"> 
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<div class="container1" style="margin-left: 430px;width: 50%;padding: 10px">
+
+    
+    <select id="mySelect" onchange="Flightchange()" class="selectpicker" 
+        data-style="btn-success">
+    <option selected hidden>select any option </option>
+    <option value="1">One-way</option>
+    <option value="2">Round-trip</option>
+    <option value="3">Multi-Cities</option>
+  </select>
+   
+</div>
+    <br>
+  <!-- One-way form -->
+  
+  <form class="oneway" id="oneway" style="display: none;text-align: center;" onsubmit="oneWay()">
+      <br>
+      <h4 style="text-align: center"><b><u>One Way</u></b></h4><br>
+     
+      <span class="fname"> From : </span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+      <input type="text" class="from" onchange="oneWay()" required="" id="from" placeholder="Enter From city"><br>
+       <p style="font-weight: bold;margin-left: 45px" id="cityMsg"></p>
+      
+      <span>To : </span> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+      <input type="text" class="to" required="" id="to" onchange="oneWay()" placeholder="Enter To city"><br><br>
+      
+      <div class="depart">
+          <span>Departure date : </span>&ensp;&ensp;&ensp;
+          <input type="date" class="dept" style="width: 188px" required="" id="depDate" onchange="oneWay()" placeholder="Enter departure date">
+           <p id="deptMsg" style="font-weight: bold;margin-left: 115px"></p>
+      </div>
+      
+      <button class="btn btn-primary" id="oneButton" disabled="disabled">Submit</button>
+    </form><br>
+  
+  
+    
+    
+  <!-- Round-trip form -->
+  <form id="roundtrip" class="roundtrip" style="display: none" onsubmit="roundTrip()">
+      <br>
+       <h4 style="text-align: center"><b><u>Round Trip</u></b></h4><br>
+       <div style="margin-left: 50px">
+           <span>From : </span>&ensp;&ensp;&ensp;&ensp;&ensp; <input type="text" onchange="roundTrip()"  required="" id="from-round" placeholder="Enter From city"><br><br>
+       </div>
+      <p id="roundCityMsg" style="font-weight: bold ; margin-left: 90px"></p>
+      <div style="margin-left: 52px">
+          <span>To : </span>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; &ensp;<input type="text" onchange="roundTrip()" required="" id="to-round" placeholder="Enter To city"><br><br><br>
+      </div>
+      <div style="margin-left: 15px;">
+          <span>Departure date : </span>&ensp;<input style="width: 188px" type="date" onchange="roundTrip()" id="depDate-round" required="" placeholder="Enter departure date"><br><br>
+      </div>
+      <p id="roundDeptMsg" style="font-weight: bold ;margin-left: 100px"></p>
+      <div style="margin-left: 30px">
+          <span>Return date : </span>&ensp;&ensp;<input type="date" style="width: 188px" onchange="roundTrip()" id="retDate-round" required="" placeholder="Enter return date"><br><br>
+      </div>
+      <p id="roundRetMsg" style="font-weight: bold;margin-left: 100px"></p>
+       <button class="btn btn-primary" id="roundButton" disabled="">Submit</button><br>
+  </form>
+  
+  
+  
+  <!-- multi-cities form -->
+  <div id="multicities" class="multicity" style="display: none">
+       <h4 style="text-align: center"><b><u>MultiCity</u></b></h4><br>
+      <div class="multicity2">
+        <h5>Flight 1:</h5>
+        <span>From : </span> <input type="text" class="" id="from-multi0" value=""  onchange="MultiCity()" required="" placeholder="Enter From city">
+        <span>To : </span> <input type="text" id="to-multi0" required="" value=""  onchange="MultiCity()" placeholder="Enter To city">
+        <span>Departure date : </span><input type="date" id="depart-multi0" required="" onchange="MultiCity()" placeholder="Enter departure date">
+        <br><br>
+      </div>
+        <div id="third" class="multicity2">
+        <h5>Flight 2:</h5>
+        <span>From : </span> <input type="text" class="" id="from-multi01" value=""  onchange="MultiCity()" required="" placeholder="Enter From city">
+        <span>To : </span> <input type="text" id="to-multi01" required=""  value="" onchange="MultiCity()" placeholder="Enter To city">
+        <span>Departure date : </span><input type="date" id="depart-multisec" required="" onchange="MultiCity()" placeholder="Enter departure date">
+        </div>
+        
+        
+        <div id="adding">
+             
+        </div><br>
+        <button onclick="addFlight()" id="addButton" class="btn btn-primary" disabled="">+ Add Another Flight</button>
+        <br>
+    </div>
+    
+    <script>
+      /*  function Flightchange(){
+           var flight = document.getElementById("mySelect").value ;
+           console.log(flight);
+           if(flight == 1){
+               oneway.style.display = 'block';
+               roundtrip.style.display = 'none';
+               multicities.style.display = 'none';
+               
+           }
+           else if(flight == 2){
+              oneway.style.display = 'none';
+               roundtrip.style.display = 'block';
+               multicities.style.display = 'none';
+           } 
+           else if(flight == 3){
+               oneway.style.display = 'none';
+               roundtrip.style.display = 'none';
+               multicities.style.display = 'block';
+           }
+        }
+        
+        
+        //One way trip
+        function oneWay(){
+            var from = document.querySelector("#from").value;
+            var to = document.querySelector("#to").value;
+             var departDate = document.querySelector("#depDate").value;
+             
+            console.log(from + to);
+             if(from == to || to == from){
+               //alert('hey ,From city and TO city should be different');
+               document.getElementById("cityMsg").innerHTML="Invalid";
+               var button = document.querySelector("#oneButton").setAttribute("disabled","disabled");
+               
+            }
+            else if(from != to || to != from) {
+                 document.getElementById("cityMsg").innerHTML="valid";
+                 var button = document.querySelector("#oneButton");
+                 button.disabled = false; 
+            }
+            
+             var today = new Date();
+             var departureDate = new Date(departDate);
+             console.log(today+departureDate)
+             if(today>=departureDate){
+                document.getElementById("deptMsg").innerHTML="Invalid departure date";
+                var button = document.querySelector("#oneButton");
+                 button.disabled = true;
+            }
+            else if(today<departureDate){
+                 document.getElementById("deptMsg").innerHTML="valid departure date";
+                 var button = document.querySelector("#oneButton");
+                 button.disabled = false;
+            }
+           
+        }
+        
+        
+        /*function oneWay(){
+            
+            
+            var from = document.querySelector("#from").value;
+            var to = document.querySelector("#to").value;
+            var departDate = document.querySelector("#depDate").value;
+             
+             var today = new Date();
+             var departureDate = new Date(departDate);
+            //console.log(from+to)
+            if(from == to){
+               //alert('hey ,From city and TO city should be different');
+               document.getElementById("msg").innerHTML="olta";
+            }
+            if(today>=departureDate){
+                alert('hey ,Departure date should be after today')
+            }
+           
+        }*/
+        /*
+        //Round Trip 
+        function roundTrip(){
+            var from = document.querySelector("#from-round").value;
+            var to = document.querySelector("#to-round").value;
+            var depDate = document.querySelector("#depDate-round").value;
+            var retDate = document.querySelector("#retDate-round").value;
+             
+             
+             var today = new Date();
+             var departureDate = new Date(depDate);
+             var returnDate = new Date(retDate);
+            // console.log(today);
+            /// document.write(today+departureDate)
+             if(from == to || to == from){
+              document.getElementById("roundCityMsg").innerHTML="Invalid";
+              var button = document.querySelector("#roundButton");
+               button.disabled = true
+            }
+            else if(from != to || to != from){
+                document.getElementById("roundCityMsg").innerHTML="valid";
+                var button = document.querySelector("#roundButton");
+                button.disabled = false;
+            }
+            
+            if(today >= departureDate){
+                document.getElementById("roundDeptMsg").innerHTML="Invalid departure time";
+                var button = document.querySelector("#roundButton");
+                button.disabled = true;
+            }
+           else if(today<departureDate){
+                document.getElementById("roundDeptMsg").innerHTML="valid departure time";
+                var button = document.querySelector("#roundButton");
+                button.disabled = false;
+            }
+            
+            if(returnDate <= departureDate){
+                 document.getElementById("roundRetMsg").innerHTML="Invalid Return time";
+                 var button = document.querySelector("#roundButton");
+                button.disabled = true;
+            }
+            else if(returnDate > departureDate){
+                document.getElementById("roundRetMsg").innerHTML="valid Return time";
+                var button = document.querySelector("#roundButton");
+                button.disabled = false;
+            }
+        }
+        
+        
+        //Multi cities
+        function MultiCitiy(){
+            
+        }
+        
+        function addFlight(){
+            var add = document.getElementById("third");
+            document.getElementById("adding").innerHTML= add;
+        }*/
+    </script>
+    
+    <script src="index.js"></script>
+</body>
+</html>
